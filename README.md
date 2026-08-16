@@ -79,6 +79,11 @@ Download the latest AppImage from the [GitHub Releases](https://github.com/velo4
 
 Download the latest Flatpak package from the [GitHub Releases](https://github.com/velo4705/gitlimp/releases) page.
 
+> **Note:** Installing a Flatpak package requires this command:
+> ```bash
+> flatpak install gitlimp-X.X.X-x86_64.flatpak  # Where X.X.X is version name.
+> ```
+
 ## Contributing
 
 Check out the [contributing guide](CONTRIBUTING.md) to learn how to contribute to GitLiMP.
