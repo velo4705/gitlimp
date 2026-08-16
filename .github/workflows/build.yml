@@ -42,7 +42,6 @@ jobs:
           name: gitlimp-windows
           path: |
             build/bin/gitlimp.exe
-            build/bin/gitlimp-update.exe
             build/bin/gitlimp-amd64-installer.exe
 
   build-linux:
@@ -100,7 +99,6 @@ jobs:
             gitlimp-1.0.0-amd64.deb
             gitlimp-1.0.0-x86_64.AppImage
             build/bin/gitlimp
-            build/bin/gitlimp-update
 
   build-rpm:
     name: Build RPM (Fedora)
