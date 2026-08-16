@@ -8,7 +8,7 @@
 
 Preview Markdown files live without having to constantly push commits to GitHub.
 
-Currenly Available for Windows, Linux (DEB/RPM) and Flatpak.
+Currently Available for Windows, Linux (DEB/RPM/AppImage) and Flatpak.
 
 ![Latest Release](https://img.shields.io/github/v/release/velo4705/gitlimp?label=Latest%20Release&color=informational)
 ![Platforms](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20Flatpak-informational)
@@ -59,6 +59,20 @@ Download the latest release from the [GitHub Releases](https://github.com/velo47
 ### Linux
 
 Download the latest DEB or RPM package from the [GitHub Releases](https://github.com/velo4705/gitlimp/releases) page.
+
+### AppImage
+
+Download the latest AppImage from the [GitHub Releases](https://github.com/velo4705/gitlimp/releases) page.
+
+> **Note:** AppImages require FUSE. On Fedora/RHEL, install it with:
+> ```
+> sudo dnf install fuse fuse-libs
+> ```
+> If you can't install FUSE, extract and run instead:
+> ```
+> ./gitlimp-1.0.0-x86_64.AppImage --appimage-extract
+> cd squashfs-root && ./AppRun
+> ```
 
 ### Flatpak
 
