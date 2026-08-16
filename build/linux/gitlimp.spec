@@ -3,6 +3,8 @@ Version:        0.1.0
 Release:        1%{?dist}
 Summary:        Live Markdown Previewer
 
+%define debug_package %{nil}
+
 License:        MIT
 URL:            https://github.com/velo4705/gitlimp
 Source0:        %{name}-%{version}.tar.gz
