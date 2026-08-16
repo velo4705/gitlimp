@@ -27,16 +27,16 @@ having to push changes to GitHub.
 %setup -q
 
 %build
-echo "{\"version\":\"%{version}\"}" > version.json
-cd frontend && npm install && cd ..
-wails build -trimpath -ldflags "-s -w" -tags webkit2_41
+# Binary is pre-built by CI; nothing to do here.
 
 %install
 install -d %{buildroot}%{_bindir}
 install -m 755 build/bin/gitlimp %{buildroot}%{_bindir}/gitlimp
+install -m 755 build/bin/gitlimp-update %{buildroot}%{_bindir}/gitlimp-update
 
 %files
 %{_bindir}/gitlimp
+%{_bindir}/gitlimp-update
 
 %changelog
 * Sat Aug 15 2026 velo4705 <velocity4293@gmail.com> - 1.0.0-1
