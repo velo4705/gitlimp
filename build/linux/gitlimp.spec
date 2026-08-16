@@ -36,5 +36,5 @@ install -m 755 build/bin/gitlimp %{buildroot}%{_bindir}/gitlimp
 %{_bindir}/gitlimp
 
 %changelog
-* Fri Aug 15 2026 velo4705 <velocity4293@gmail.com> - 0.1.0-1
+* Sat Aug 15 2026 velo4705 <velocity4293@gmail.com> - 0.1.0-1
 - Initial release
