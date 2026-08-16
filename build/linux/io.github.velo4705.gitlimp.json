@@ -27,11 +27,11 @@
         },
         {
           "type": "file",
-          "path": "gitlimp.png"
+          "path": "flatpak/gitlimp.png"
         },
         {
           "type": "file",
-          "path": "gitlimp.desktop"
+          "path": "flatpak/gitlimp.desktop"
         }
       ]
     }
