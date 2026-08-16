@@ -58,6 +58,7 @@ Tech stack: **Go + Wails v2** | Frontend: **vanilla JS + markdown-it + github-ma
 ## M5 — Packaging & Release
 - [x] Windows: NSIS installer built (`build/bin/gitlimp-amd64-installer.exe`, 8.34 MB, embeds WebView2 bootstrapper)
 - [ ] Linux: AppImage + .deb (Ubuntu/Debian) + .rpm (Fedora) + Flatpak
+- [ ] GitHub Actions workflow: tag-triggered build of Windows (exe+installer), Linux (.deb+AppImage), RPM (Fedora container), Flatpak (covers Arch); publish to release
 - [ ] README with usage, screenshots, and measured footprint
 - [ ] Tag v0.1.0 release with artifacts for both platforms
 

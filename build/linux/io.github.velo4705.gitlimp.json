@@ -1,0 +1,39 @@
+{
+  "app-id": "io.github.velo4705.gitlimp",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "48",
+  "sdk": "org.gnome.Sdk",
+  "command": "gitlimp",
+  "finish-args": [
+    "--share=ipc",
+    "--socket=x11",
+    "--socket=wayland",
+    "--share=network",
+    "--filesystem=home"
+  ],
+  "modules": [
+    {
+      "name": "gitlimp",
+      "buildsystem": "simple",
+      "build-commands": [
+        "install -Dm755 gitlimp /app/bin/gitlimp",
+        "install -Dm644 gitlimp.png /app/share/icons/hicolor/512x512/apps/io.github.velo4705.gitlimp.png",
+        "install -Dm644 gitlimp.desktop /app/share/applications/io.github.velo4705.gitlimp.desktop"
+      ],
+      "sources": [
+        {
+          "type": "file",
+          "path": "gitlimp"
+        },
+        {
+          "type": "file",
+          "path": "gitlimp.png"
+        },
+        {
+          "type": "file",
+          "path": "gitlimp.desktop"
+        }
+      ]
+    }
+  ]
+}
