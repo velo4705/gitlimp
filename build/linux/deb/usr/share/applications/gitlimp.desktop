@@ -5,4 +5,4 @@ Comment=Live Markdown Previewer
 Exec=gitlimp
 Icon=gitlimp
 Terminal=false
-Categories=Development;Utility;
+Categories=Development;

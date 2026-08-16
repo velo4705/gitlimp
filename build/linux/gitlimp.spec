@@ -26,7 +26,7 @@ having to push changes to GitHub.
 
 %build
 cd frontend && npm install && cd ..
-wails build -trimpath -ldflags "-s -w"
+wails build -trimpath -ldflags "-s -w" -tags webkit2_41
 
 %install
 install -d %{buildroot}%{_bindir}
