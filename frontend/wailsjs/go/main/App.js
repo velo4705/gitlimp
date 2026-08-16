@@ -14,6 +14,10 @@ export function CloseTab(arg1) {
   return window['go']['main']['App']['CloseTab'](arg1);
 }
 
+export function DownloadUpdate(arg1) {
+  return window['go']['main']['App']['DownloadUpdate'](arg1);
+}
+
 export function GetRecentFiles() {
   return window['go']['main']['App']['GetRecentFiles']();
 }

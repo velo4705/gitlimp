@@ -9,8 +9,11 @@ import (
 	"mime"
 	"net/http"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"regexp"
+	goruntime "runtime"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -336,15 +339,17 @@ func (a *App) GetVersion() string {
 
 // UpdateInfo holds the result of a version check
 type UpdateInfo struct {
-	Current   string `json:"current"`
-	Latest    string `json:"latest"`
-	Available bool   `json:"available"`
-	HTMLURL   string `json:"html_url"`
-	Error     string `json:"error"`
+	Current      string `json:"current"`
+	Latest       string `json:"latest"`
+	Available    bool   `json:"available"`
+	HTMLURL      string `json:"html_url"`
+	DownloadURL  string `json:"download_url"`
+	Error        string `json:"error"`
 }
 
 // CheckForUpdates queries the GitHub releases API and compares the latest
-// tag against the running version.
+// tag against the running version. When an update is available it also
+// resolves the download URL for the current platform's binary.
 func (a *App) CheckForUpdates() UpdateInfo {
 	info := UpdateInfo{Current: a.version}
 
@@ -369,6 +374,10 @@ func (a *App) CheckForUpdates() UpdateInfo {
 	var release struct {
 		TagName string `json:"tag_name"`
 		HTMLURL string `json:"html_url"`
+		Assets  []struct {
+			Name               string `json:"name"`
+			BrowserDownloadURL string `json:"browser_download_url"`
+		} `json:"assets"`
 	}
 	if err := json.Unmarshal(body, &release); err != nil {
 		info.Error = "failed to parse response"
@@ -377,6 +386,80 @@ func (a *App) CheckForUpdates() UpdateInfo {
 
 	info.Latest = release.TagName
 	info.HTMLURL = release.HTMLURL
-	info.Available = release.TagName != "" && release.TagName != a.version
+	info.Available = release.TagName != "" && normalizeVersion(release.TagName) != normalizeVersion(a.version)
+	if info.Available {
+		info.DownloadURL = a.matchAsset(release.Assets)
+	}
 	return info
+}
+
+// normalizeVersion strips a leading "v" and trims whitespace so a tag like
+// "v1.0.0" compares equal to a version.json value like "1.0.0".
+func normalizeVersion(v string) string {
+	return strings.TrimSpace(strings.TrimPrefix(strings.TrimSpace(v), "v"))
+}
+
+// matchAsset picks the raw executable asset for the current platform from the
+// release assets, preferring the plain binary over installers (the updater
+// replaces the running exe, it cannot install into Program Files).
+func (a *App) matchAsset(assets []struct {
+	Name               string `json:"name"`
+	BrowserDownloadURL string `json:"browser_download_url"`
+}) string {
+	want := map[string]string{
+		"windows": "gitlimp.exe",
+		"linux":   "gitlimp",
+	}[a.platform()]
+	for _, asset := range assets {
+		if want != "" && asset.Name == want {
+			return asset.BrowserDownloadURL
+		}
+	}
+	if len(assets) > 0 {
+		return assets[0].BrowserDownloadURL
+	}
+	return ""
+}
+
+// platform returns the runtime OS short name used to match release assets.
+func (a *App) platform() string {
+	return goruntime.GOOS
+}
+
+// updaterName returns the file name of the updater helper for the current
+// platform. It ships alongside the main executable.
+func updaterName() string {
+	if goruntime.GOOS == "windows" {
+		return "gitlimp-update.exe"
+	}
+	return "gitlimp-update"
+}
+
+// DownloadUpdate spawns the updater helper to download and apply the latest
+// release, then exits the app so the running exe is unlocked for replacement.
+// The updater binary must live next to the running executable.
+func (a *App) DownloadUpdate(url string) error {
+	if url == "" {
+		return fmt.Errorf("no download URL")
+	}
+	exe, err := os.Executable()
+	if err != nil {
+		return fmt.Errorf("resolve executable: %w", err)
+	}
+	updater := filepath.Join(filepath.Dir(exe), updaterName())
+	if _, err := os.Stat(updater); err != nil {
+		return fmt.Errorf("updater not found next to %s: %w", exe, err)
+	}
+	cmd := exec.Command(updater, "--target", exe, "--url", url, "--pid", strconv.Itoa(os.Getpid()))
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	if err := cmd.Start(); err != nil {
+		return fmt.Errorf("start updater: %w", err)
+	}
+	// Give the updater a moment to start, then exit so the exe unlocks.
+	go func() {
+		time.Sleep(2 * time.Second)
+		os.Exit(0)
+	}()
+	return nil
 }

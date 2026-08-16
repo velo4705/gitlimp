@@ -8,6 +8,8 @@ export function ClearRecentFiles():Promise<void>;
 
 export function CloseTab(arg1:string):Promise<void>;
 
+export function DownloadUpdate(arg1:string):Promise<void>;
+
 export function GetRecentFiles():Promise<Array<main.RecentEntry>>;
 
 export function GetTabPath(arg1:string):Promise<string>;

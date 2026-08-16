@@ -21,6 +21,11 @@
         <button id="reload-btn" class="toolbar-btn" disabled title="Reload (Ctrl+R)">⟳</button>
     </header>
 
+    <div id="update-banner" class="update-banner hidden">
+        <span id="update-text"></span>
+        <button id="update-btn" class="toolbar-btn primary">Download & Restart</button>
+    </div>
+
     <main id="main">
         <div id="empty-state" class="empty-state">
             <img class="logo-mark" src="/logo.png" width="112" height="112" alt="GitLiMP logo"/>
@@ -39,7 +44,10 @@
                 <div class="pane-body"></div>
             </div>
         </div>
-        <div id="error-banner" class="error-banner hidden"></div>
+        <div id="error-banner" class="error-banner hidden">
+            <span id="error-text"></span>
+            <button id="error-close" class="error-close">&#10005;</button>
+        </div>
     </main>
 
     <footer id="status-bar">

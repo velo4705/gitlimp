@@ -31,6 +31,8 @@ jobs:
         run: go install github.com/wailsapp/wails/v2/cmd/wails@v2.14.0
       - name: Install NSIS
         run: choco install nsis -y --no-progress
+      - name: Build updater
+        run: go build -trimpath -ldflags "-s -w" -o build/bin/gitlimp-update.exe ./cmd/updater
       - name: Build
         env:
           PATH: ${{ env.ProgramFiles }}\NSIS;%USERPROFILE%\go\bin;${{ env.PATH }}
@@ -40,6 +42,7 @@ jobs:
           name: gitlimp-windows
           path: |
             build/bin/gitlimp.exe
+            build/bin/gitlimp-update.exe
             build/bin/gitlimp-amd64-installer.exe
 
   build-linux:
@@ -63,15 +66,18 @@ jobs:
           node-version: '20'
       - name: Install Wails
         run: go install github.com/wailsapp/wails/v2/cmd/wails@v2.14.0
+      - name: Build updater
+        run: go build -trimpath -ldflags "-s -w" -o build/bin/gitlimp-update ./cmd/updater
       - name: Build
         run: wails build -trimpath -ldflags "-s -w" -tags webkit2_41
       - name: Build .deb
         run: |
           mkdir -p build/linux/deb/usr/bin
           cp build/bin/gitlimp build/linux/deb/usr/bin/gitlimp
-          chmod 755 build/linux/deb/usr/bin/gitlimp
+          cp build/bin/gitlimp-update build/linux/deb/usr/bin/gitlimp-update
+          chmod 755 build/linux/deb/usr/bin/gitlimp build/linux/deb/usr/bin/gitlimp-update
           chmod 644 build/linux/deb/DEBIAN/control
-          dpkg-deb --build --root-owner-group build/linux/deb gitlimp-0.1.0-amd64.deb
+          dpkg-deb --build --root-owner-group build/linux/deb gitlimp-1.0.0-amd64.deb
       - name: Build AppImage
         run: |
           wget -q https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O appimagetool
@@ -79,20 +85,22 @@ jobs:
           ./appimagetool --appimage-extract > /dev/null
           mkdir -p AppDir/usr/bin AppDir/usr/share/applications AppDir/usr/share/icons/hicolor/512x512/apps
           cp build/bin/gitlimp AppDir/usr/bin/
+          cp build/bin/gitlimp-update AppDir/usr/bin/
           cp build/linux/deb/usr/share/applications/gitlimp.desktop AppDir/gitlimp.desktop
           cp build/linux/deb/usr/share/applications/gitlimp.desktop AppDir/usr/share/applications/
           cp build/linux/deb/usr/share/icons/hicolor/512x512/apps/gitlimp.png AppDir/usr/share/icons/hicolor/512x512/apps/
           cp build/linux/deb/usr/share/icons/hicolor/512x512/apps/gitlimp.png AppDir/gitlimp.png
           printf '#!/bin/sh\nSELF=$(readlink -f "%s")\nexec "$SELF" --appimage-extract-and-run\n' "$0" > AppDir/AppRun
           chmod +x AppDir/AppRun
-          ./squashfs-root/AppRun AppDir gitlimp-0.1.0-x86_64.AppImage
+          ./squashfs-root/AppRun AppDir gitlimp-1.0.0-x86_64.AppImage
       - uses: actions/upload-artifact@v4
         with:
           name: gitlimp-linux
           path: |
-            gitlimp-0.1.0-amd64.deb
-            gitlimp-0.1.0-x86_64.AppImage
+            gitlimp-1.0.0-amd64.deb
+            gitlimp-1.0.0-x86_64.AppImage
             build/bin/gitlimp
+            build/bin/gitlimp-update
 
   build-rpm:
     name: Build RPM (Fedora)
@@ -110,8 +118,8 @@ jobs:
           export PATH=$PATH:$(go env GOPATH)/bin
           mkdir -p ~/rpmbuild/{SPECS,SOURCES,BUILD,RPMS,SRPMS}
           tar --exclude='.git' --exclude='node_modules' \
-              --transform='s,^\./,gitlimp-0.1.0/,' \
-              -czf ~/rpmbuild/SOURCES/gitlimp-0.1.0.tar.gz .
+              --transform='s,^\./,gitlimp-1.0.0/,' \
+              -czf ~/rpmbuild/SOURCES/gitlimp-1.0.0.tar.gz .
           cp build/linux/gitlimp.spec ~/rpmbuild/SPECS/
           rpmbuild -ba ~/rpmbuild/SPECS/gitlimp.spec
       - uses: actions/upload-artifact@v4
@@ -142,11 +150,11 @@ jobs:
         run: |
           flatpak install -y --user flathub org.gnome.Platform//48 org.gnome.Sdk//48
           flatpak-builder --user --force-clean --repo=repo flatpak-build build/linux/io.github.velo4705.gitlimp.json
-          flatpak build-bundle repo gitlimp-0.1.0-x86_64.flatpak io.github.velo4705.gitlimp
+          flatpak build-bundle repo gitlimp-1.0.0-x86_64.flatpak io.github.velo4705.gitlimp
       - uses: actions/upload-artifact@v4
         with:
           name: gitlimp-flatpak
-          path: gitlimp-0.1.0-x86_64.flatpak
+          path: gitlimp-1.0.0-x86_64.flatpak
 
   release:
     name: Publish Release

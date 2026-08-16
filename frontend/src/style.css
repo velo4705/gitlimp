@@ -381,7 +381,49 @@ body {
     border-radius: 6px;
     color: var(--danger);
     background: rgba(255, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
+
+.error-banner #error-text { flex: 1; }
+
+.error-close {
+    background: none;
+    border: none;
+    color: var(--danger);
+    font-size: 16px;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.error-close:hover { background: rgba(207, 34, 46, 0.15); }
+
+/* Update banner */
+.update-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    font-size: 13px;
+    color: var(--status-fg);
+    background: var(--accent);
+    border-bottom: 1px solid var(--toolbar-border);
+    flex-shrink: 0;
+}
+
+.update-banner span { color: #ffffff; flex: 1; }
+
+.update-banner .toolbar-btn {
+    border-color: #ffffff;
+    background: #ffffff;
+    color: var(--accent);
+}
+
+.update-banner .toolbar-btn:hover { background: rgba(255, 255, 255, 0.85); }
 
 /* Status bar */
 #status-bar {

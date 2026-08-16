@@ -1,4 +1,22 @@
+# Build artifacts
 build/bin
 build/windows/installer/tmp
+gitlimp.exe
+gitlimp-update.exe
+
+# Dependencies
 node_modules
 frontend/dist
+
+# Wails-generated checksums / scratch
+*.md5
+frontend/test-mermaid.mjs
+
+# Test files
+test.md
+test-2.md
+demo.md
+test-image.png
+media/
+
+milestone.md

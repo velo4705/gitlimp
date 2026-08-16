@@ -4,13 +4,16 @@
 
 # GitLiMP
 
-*A **Git**Hub **Li**ve **M**arkown **P**reviewer — Previews Markdown files live without having to constantly push changes to GitHub.*
+*An ordinary **Git**Hub **Li**ve **M**arkown **P**reviewer.*
 
-Built with **Go + Wails v2** and a framework-free **vanilla JS + markdown-it** frontend.
+Preview Markdown files live without having to constantly push commits to GitHub.
 
-Available on Windows.
+Currenly Available for Windows, Linux (DEB/RPM) and Flatpak.
 
-**[Try the live web demo →](https://velo4705.github.io/gitlimp/)**
+![Latest Release](https://img.shields.io/github/v/release/velo4705/gitlimp?label=Latest%20Release&color=informational)
+![Platforms](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20Flatpak-informational)
+
+**[→ Try GitLiMP in Browser ←](https://velo4705.github.io/gitlimp/)** &nbsp;
 
 <img src="assets/screenshot-main.png" alt="GitLiMP Main Preview" width="800">
 
@@ -18,13 +21,15 @@ Available on Windows.
 
 ---
 
-## How It Works
+## How to Use it?
 
 **Simple.** Just open a **Markdown file** from any project you're working on. GitLiMP tracks changes in real-time as you edit and save. It even has a Split View feature that lets you compare two documents **side-by-side**.
 
 This software is solely made to **preview markdown files live** while editing in your preferred editor, while applying **GitHub-rich rendering** to provide what you see on GitHub without having to keep pushing changes to GitHub just because of the Markdown file.
 
 The **Recent Files** feature allows you to quickly switch between recently opened files... and can be **cleared** if its cluttered.
+
+**GitLiMP** is ideal for the following things: **Markdown-only repositories** where the main purpose is on Curations/Lists, and **Styling the README** to further provide info about the project, without "pushing" a lot of commits just to Preview the README on GitHub.
 
 ### Key Features
 
@@ -45,25 +50,20 @@ The **Recent Files** feature allows you to quickly switch between recently opene
 | Toggle Split View | `Ctrl+\` |
 
 
-## Building
+## Installation
 
-Prerequisites: Go, Node.js, [Wails CLI](https://wails.io/docs/gettingstarted/installation).
+### Windows
 
-```bash
-wails build -trimpath -ldflags "-s -w"
-```
+Download the latest release from the [GitHub Releases](https://github.com/velo4705/gitlimp/releases) page.
 
-The binary is produced at `build/bin/gitlimp.exe` (Windows) or `build/bin/gitlimp` (Linux).
+### Linux
 
-## Footprint
+Download the latest DEB or RPM package from the [GitHub Releases](https://github.com/velo4705/gitlimp/releases) page.
 
-| Metric | Value |
-|---|---|
-| Binary size (stripped) | ~16.3 MB |
-| NSIS installer | ~8.3 MB (includes WebView2 bootstrapper) |
-| Idle memory (working set) | ~40 MB |
-| Go direct dependencies | 4 |
+### Flatpak
 
-## License
+Download the latest Flatpak package from the [GitHub Releases](https://github.com/velo4705/gitlimp/releases) page.
 
-MIT
+## Contributing
+
+Check out the [contributing guide](CONTRIBUTING.md) to learn how to contribute to GitLiMP.

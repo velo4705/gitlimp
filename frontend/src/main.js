@@ -7,7 +7,7 @@ import 'markdown-it-github-alerts/styles/github-colors-light.css';
 import 'markdown-it-github-alerts/styles/github-colors-dark-media.css';
 import {md, renderMermaid} from './markdown';
 
-import {OpenFile, LoadFile, CloseTab, ResolveImagePaths, GetRecentFiles, ClearRecentFiles, GetVersion, CheckForUpdates} from '../wailsjs/go/main/App';
+import {OpenFile, LoadFile, CloseTab, ResolveImagePaths, GetRecentFiles, ClearRecentFiles, GetVersion, CheckForUpdates, DownloadUpdate} from '../wailsjs/go/main/App';
 import {EventsOn, BrowserOpenURL} from '../wailsjs/runtime/runtime';
 
 // --- DOM refs ---
@@ -24,7 +24,12 @@ const panes = document.getElementById('panes');
 const paneLeft = document.getElementById('pane-left');
 const paneRight = document.getElementById('pane-right');
 const errorBanner = document.getElementById('error-banner');
+const errorText = document.getElementById('error-text');
+const errorCloseBtn = document.getElementById('error-close');
 const statusText = document.getElementById('status-text');
+const updateBanner = document.getElementById('update-banner');
+const updateText = document.getElementById('update-text');
+const updateBtn = document.getElementById('update-btn');
 
 // --- State ---
 // Each pane owns its own tab list + active tab.
@@ -337,7 +342,7 @@ function showEmpty() {
 }
 
 function showError(message) {
-    errorBanner.textContent = message;
+    errorText.textContent = message;
     errorBanner.classList.remove('hidden');
     emptyState.classList.add('hidden');
     panes.classList.remove('hidden');
@@ -475,6 +480,7 @@ openBtn.addEventListener('click', openFileAction);
 emptyOpenBtn.addEventListener('click', openFileAction);
 reloadBtn.addEventListener('click', reloadAction);
 splitBtn.addEventListener('click', toggleSplit);
+errorCloseBtn.addEventListener('click', () => errorBanner.classList.add('hidden'));
 recentBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     if (recentDropdown.classList.contains('hidden')) showRecent();
@@ -523,13 +529,33 @@ for (const p of PANES) {
 }
 
 // --- Version + Update Check ---
+let updateURL = null;
+let updating = false;
+
+updateBtn.addEventListener('click', async () => {
+    if (updating || !updateURL) return;
+    updating = true;
+    updateText.textContent = 'Downloading update...';
+    updateBtn.disabled = true;
+    try {
+        await DownloadUpdate(updateURL);
+    } catch (err) {
+        updating = false;
+        updateBtn.disabled = false;
+        updateText.textContent = 'Update failed: ' + errMessage(err);
+        console.error(err);
+    }
+});
+
 (async () => {
     appVersion = await GetVersion();
     setStatus(appVersion || 'dev');
     const info = await CheckForUpdates();
     if (info.available && info.latest) {
-        setStatus(`${appVersion} → Update: ${info.latest}`);
-        statusText.title = `Update available: ${info.latest}\n${info.html_url}`;
+        updateURL = info.download_url;
+        updateText.textContent = `Update available: GitLiMP v${info.latest} → v${appVersion}. Download and restart to update.`;
+        updateBtn.disabled = !updateURL;
+        updateBanner.classList.remove('hidden');
     }
 })();
 

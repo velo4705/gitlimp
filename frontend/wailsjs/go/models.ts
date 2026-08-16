@@ -39,6 +39,7 @@ export namespace main {
 	    latest: string;
 	    available: boolean;
 	    html_url: string;
+	    download_url: string;
 	    error: string;
 	
 	    static createFrom(source: any = {}) {
@@ -51,6 +52,7 @@ export namespace main {
 	        this.latest = source["latest"];
 	        this.available = source["available"];
 	        this.html_url = source["html_url"];
+	        this.download_url = source["download_url"];
 	        this.error = source["error"];
 	    }
 	}
