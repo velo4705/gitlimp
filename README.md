@@ -64,9 +64,10 @@ Download the latest DEB or RPM package from the [GitHub Releases](https://github
 
 Download the latest AppImage from the [GitHub Releases](https://github.com/velo4705/gitlimp/releases) page.
 
-> **Note:** AppImages require FUSE. On Fedora/RHEL, install it with:
+> **Note:** AppImages require FUSE. Install it with:
 > ```
-> sudo dnf install fuse fuse-libs
+> sudo apt install fuse libfuse2          # Debian/Ubuntu
+> sudo dnf install fuse fuse-libs         # Fedora/RHEL
 > ```
 > If you can't install FUSE, extract and run instead:
 > ```
