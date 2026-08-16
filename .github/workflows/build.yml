@@ -132,7 +132,7 @@ jobs:
         run: |
           flatpak install -y --user flathub org.gnome.Platform//48 org.gnome.Sdk//48
           flatpak-builder --user --force-clean --repo=repo flatpak-build build/linux/io.github.velo4705.gitlimp.json
-          flatpak build-bundle --user repo gitlimp-0.1.0-x86_64.flatpak io.github.velo4705.gitlimp
+          flatpak build-bundle repo gitlimp-0.1.0-x86_64.flatpak io.github.velo4705.gitlimp
       - uses: actions/upload-artifact@v4
         with:
           name: gitlimp-flatpak
