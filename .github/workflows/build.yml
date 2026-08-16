@@ -66,13 +66,14 @@ jobs:
         run: |
           wget -q https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O appimagetool
           chmod +x appimagetool
+          ./appimagetool --appimage-extract > /dev/null
           mkdir -p AppDir/usr/bin AppDir/usr/share/applications AppDir/usr/share/icons/hicolor/512x512/apps
           cp build/bin/gitlimp AppDir/usr/bin/
           cp build/linux/deb/usr/share/applications/gitlimp.desktop AppDir/usr/share/applications/
           cp build/linux/deb/usr/share/icons/hicolor/512x512/apps/gitlimp.png AppDir/usr/share/icons/hicolor/512x512/apps/
           printf '#!/bin/sh\nSELF=$(readlink -f "%s")\nexec "$SELF" --appimage-extract-and-run\n' "$0" > AppDir/AppRun
           chmod +x AppDir/AppRun
-          ./appimagetool AppDir gitlimp-0.1.0-x86_64.AppImage
+          ./squashfs-root/AppRun AppDir gitlimp-0.1.0-x86_64.AppImage
       - uses: actions/upload-artifact@v4
         with:
           name: gitlimp-linux
@@ -89,7 +90,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install deps
-        run: dnf install -y gcc libgtk-3-devel webkit2gtk4.1-devel pkgconfig golang nodejs npm rpm-build git
+        run: dnf install -y gcc gtk3-devel webkit2gtk4.1-devel pkgconfig golang nodejs npm rpm-build git
       - name: Install Wails
         run: go install github.com/wailsapp/wails/v2/cmd/wails@v2.14.0
       - name: Build RPM

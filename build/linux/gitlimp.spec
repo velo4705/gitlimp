@@ -8,7 +8,7 @@ URL:            https://github.com/velo4705/gitlimp
 Source0:        %{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
-BuildRequires:  libgtk-3-devel
+BuildRequires:  gtk3-devel
 BuildRequires:  webkit2gtk4.1-devel
 BuildRequires:  pkgconfig
 BuildRequires:  golang
