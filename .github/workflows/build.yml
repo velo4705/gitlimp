@@ -139,11 +139,11 @@ jobs:
               -czf "$TOPDIR/SOURCES/gitlimp-${VERSION}.tar.gz" .
           cp build/linux/gitlimp.spec "$TOPDIR/SPECS/"
           rpmbuild -ba --define "version ${VERSION}" --define "_topdir $TOPDIR" "$TOPDIR/SPECS/gitlimp.spec"
+          cp "$TOPDIR"/RPMS/**/*.rpm .
       - uses: actions/upload-artifact@v4
         with:
           name: gitlimp-rpm
-          path: |
-            $HOME/rpmbuild/RPMS/**/*.rpm
+          path: "*.rpm"
 
   build-flatpak:
     name: Build Flatpak
