@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=GitLiMP
+Comment=Live Markdown Previewer
+Exec=gitlimp
+Icon=gitlimp
+Terminal=false
+Categories=Development;Utility;

@@ -1,0 +1,10 @@
+Package: gitlimp
+Version: 0.1.0
+Section: utils
+Priority: optional
+Architecture: amd64
+Maintainer: velo4705 <velocity4293@gmail.com>
+Depends: libwebkit2gtk-4.1-0, libgtk-3-0
+Description: Git LiMP - Live Markdown Previewer
+ Preview markdown files live with GitHub-rich rendering,
+ without having to push changes to GitHub.
