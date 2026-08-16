@@ -57,20 +57,20 @@ Tech stack: **Go + Wails v2** | Frontend: **vanilla JS + markdown-it + github-ma
 
 ## M5 — Packaging & Release
 - [x] Windows: NSIS installer built (`build/bin/gitlimp-amd64-installer.exe`, 8.34 MB, embeds WebView2 bootstrapper)
-- [ ] Linux: AppImage + .deb (Ubuntu/Debian) + .rpm (Fedora) + Flatpak
-- [ ] GitHub Actions workflow: tag-triggered build of Windows (exe+installer), Linux (.deb+AppImage), RPM (Fedora container), Flatpak (covers Arch); publish to release
+- [x] Linux: AppImage + .deb (Ubuntu/Debian) + .rpm (Fedora) + Flatpak (covers Arch)
+- [x] GitHub Actions workflow: tag-triggered build of Windows (exe+installer), Linux (.deb+AppImage), RPM (Fedora container), Flatpak; publish to release
 - [ ] README with usage, screenshots, and measured footprint
 - [ ] Tag v0.1.0 release with artifacts for both platforms
 
 ## M6 — Web Demo
 Interactive browser demo showing how GitLiMP is used as a markdown previewer.
 Same look & feel as the desktop app, but running in the web browser.
-- [ ] Mock the Wails backend for the browser: stub `App` bindings + runtime (file open via `<input type=file>` / File System Access API, image resolution via data URLs, no watchers)
-- [ ] Bundle the existing frontend for the web (Vite web build, shared UI: toolbar, tabs, split view, status bar, empty state)
-- [ ] Demo content: pick a sample `.md` (or load your own) + a side-by-side editor pane so visitors can edit and watch the live preview
-- [ ] Deployable static site (GitHub Pages / any static host)
-- [ ] Download button: OS detection (`navigator.userAgentData.platform`), links to `releases/latest/download/<asset>` per platform
-- [ ] Star button: link to the GitHub repo
+- [x] Mock the Wails backend for the browser: `demo/src/mock.js` stubs `App` bindings + runtime (file open via `<input type=file>`, version/update canned, `BrowserOpenURL` → `window.open`)
+- [x] Bundle the existing frontend for the web: shared `frontend/src/markdown.js` pipeline (markdown-it + mermaid + katex + hljs), Vite web build (`npm run build:demo`) into `docs/`
+- [x] Demo content: playground ("playground.md" / "cheatsheet.md" samples) + side-by-side editor pane so visitors can edit and watch the live preview
+- [x] Deployable static site: built to `docs/`, GitHub Pages from `/docs` on `main` → https://velo4705.github.io/gitlimp/
+- [x] Download button: OS detection (`navigator.userAgent`), links to `releases/latest/download/<asset>` per platform
+- [x] Star button: link to the GitHub repo
 - [ ] README link + badge pointing to the live demo
 
 ## M7 — Auto-Update

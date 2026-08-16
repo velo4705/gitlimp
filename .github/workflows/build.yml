@@ -15,6 +15,11 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Set version
+        run: |
+          $v = $env:GITHUB_REF_NAME -replace '^v',''
+          '{"version":"'+$v+'"}' | Out-File -Encoding utf8 version.json
+          Get-Content version.json
       - uses: actions/setup-go@v5
         with:
           go-version: '1.25'
@@ -42,6 +47,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Set version
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "{\"version\":\"${VERSION}\"}" > version.json
+          cat version.json
       - name: Install deps
         run: sudo apt-get update && sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.1-dev build-essential pkg-config
       - uses: actions/setup-go@v5

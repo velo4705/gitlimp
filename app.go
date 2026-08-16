@@ -5,7 +5,9 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"io"
 	"mime"
+	"net/http"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -33,6 +35,7 @@ type App struct {
 	mu       sync.Mutex
 	watchers map[string]*fsnotify.Watcher // tabID → watcher
 	paths    map[string]string            // tabID → path
+	version  string
 }
 
 // NewApp creates a new App application struct
@@ -324,4 +327,56 @@ func (a *App) ResolveImagePaths(markdownFilePath string, html string) string {
 func (a *App) IsMarkdown(path string) bool {
 	ext := strings.ToLower(filepath.Ext(path))
 	return ext == ".md" || ext == ".markdown"
+}
+
+// GetVersion returns the current app version
+func (a *App) GetVersion() string {
+	return a.version
+}
+
+// UpdateInfo holds the result of a version check
+type UpdateInfo struct {
+	Current   string `json:"current"`
+	Latest    string `json:"latest"`
+	Available bool   `json:"available"`
+	HTMLURL   string `json:"html_url"`
+	Error     string `json:"error"`
+}
+
+// CheckForUpdates queries the GitHub releases API and compares the latest
+// tag against the running version.
+func (a *App) CheckForUpdates() UpdateInfo {
+	info := UpdateInfo{Current: a.version}
+
+	resp, err := http.Get("https://api.github.com/repos/velo4705/gitlimp/releases/latest")
+	if err != nil {
+		info.Error = err.Error()
+		return info
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		info.Error = err.Error()
+		return info
+	}
+
+	if resp.StatusCode != 200 {
+		info.Error = "no releases yet"
+		return info
+	}
+
+	var release struct {
+		TagName string `json:"tag_name"`
+		HTMLURL string `json:"html_url"`
+	}
+	if err := json.Unmarshal(body, &release); err != nil {
+		info.Error = "failed to parse response"
+		return info
+	}
+
+	info.Latest = release.TagName
+	info.HTMLURL = release.HTMLURL
+	info.Available = release.TagName != "" && release.TagName != a.version
+	return info
 }

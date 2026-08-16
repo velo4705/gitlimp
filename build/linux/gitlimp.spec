@@ -27,6 +27,7 @@ having to push changes to GitHub.
 %setup -q
 
 %build
+echo "{\"version\":\"%{version}\"}" > version.json
 cd frontend && npm install && cd ..
 wails build -trimpath -ldflags "-s -w" -tags webkit2_41
 

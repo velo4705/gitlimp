@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>GitLiMP Playground</title>
+</head>
+<body>
+<div id="app">
+    <header id="toolbar">
+        <span class="brand"><img src="/logo.png" alt=""/>GitLiMP Playground</span>
+        <label>
+            <select id="sample-dropdown" title="Load a sample document">
+                <option value="playground">Sample: Playground</option>
+                <option value="cheatsheet">Sample: Cheat Sheet</option>
+            </select>
+        </label>
+        <button id="open-btn" class="toolbar-btn">Open Local File...</button>
+        <input id="file-input" type="file" accept=".md,.markdown,text/markdown,text/plain" class="hidden"/>
+        <div class="toolbar-spacer"></div>
+        <button id="star-btn" class="toolbar-btn" title="Star on GitHub">&#9733; Star</button>
+        <button id="download-btn" class="toolbar-btn primary" title="Download GitLiMP for your OS">&#11015; Download</button>
+    </header>
+
+    <main id="main">
+        <div class="pane">
+            <div class="pane-header">Markdown</div>
+            <textarea id="editor" spellcheck="false" placeholder="# Type markdown here..."></textarea>
+        </div>
+        <div class="pane">
+            <div class="pane-header">Preview</div>
+            <div id="preview"><div class="markdown-body"></div></div>
+        </div>
+    </main>
+
+    <footer id="status-bar">
+        <span id="status-text">Ready</span>
+        <span class="spacer"></span>
+        <span class="version" id="version-text"></span>
+    </footer>
+</div>
+<script type="module" src="/src/playground.js"></script>
+</body>
+</html>

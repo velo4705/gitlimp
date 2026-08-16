@@ -10,6 +10,8 @@ Built with **Go + Wails v2** and a framework-free **vanilla JS + markdown-it** f
 
 Available on Windows.
 
+**[Try the live web demo →](https://velo4705.github.io/gitlimp/)**
+
 <img src="assets/screenshot-main.png" alt="GitLiMP Main Preview" width="800">
 
 </div>

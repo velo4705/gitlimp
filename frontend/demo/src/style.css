@@ -1,0 +1,205 @@
+:root {
+    --toolbar-bg: #f6f8fa;
+    --toolbar-border: #d0d7de;
+    --status-bg: #f6f8fa;
+    --status-fg: #57606a;
+    --accent: #0969da;
+    --accent-hover: #0550ae;
+    --danger: #cf222e;
+    --pane-bg: #ffffff;
+    --pane-border: #d0d7de;
+    --dropdown-bg: #ffffff;
+    --dropdown-hover: #f6f8fa;
+    --editor-bg: #f6f8fa;
+    --editor-fg: #1f2328;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --toolbar-bg: #21262d;
+        --toolbar-border: #30363d;
+        --status-bg: #161b22;
+        --status-fg: #8b949e;
+        --accent: #58a6ff;
+        --accent-hover: #79c0ff;
+        --danger: #f85149;
+        --pane-bg: #0d1117;
+        --pane-border: #30363d;
+        --dropdown-bg: #21262d;
+        --dropdown-hover: #30363d;
+        --editor-bg: #161b22;
+        --editor-fg: #e6edf3;
+        color-scheme: dark;
+    }
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+        Helvetica, Arial, sans-serif;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Toolbar */
+#toolbar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    background: var(--toolbar-bg);
+    border-bottom: 1px solid var(--toolbar-border);
+    flex-shrink: 0;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--status-fg);
+    white-space: nowrap;
+}
+
+.brand img {
+    width: 22px;
+    height: 22px;
+}
+
+.toolbar-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+    border: 1px solid var(--toolbar-border);
+    background: var(--dropdown-bg);
+    color: var(--status-fg);
+}
+
+.toolbar-btn:hover { background: var(--dropdown-hover); }
+
+.toolbar-btn.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+}
+
+.toolbar-btn.primary:hover { background: var(--accent-hover); }
+
+.toolbar-spacer { flex: 1; }
+
+/* Sample dropdown */
+#sample-dropdown {
+    padding: 5px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+    border: 1px solid var(--toolbar-border);
+    background: var(--dropdown-bg);
+    color: var(--status-fg);
+    max-width: 180px;
+}
+
+/* Playground body */
+#main {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+
+.pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    background: var(--pane-bg);
+}
+
+.pane + .pane {
+    border-left: 1px solid var(--pane-border);
+}
+
+.pane-header {
+    padding: 5px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--status-fg);
+    background: var(--toolbar-bg);
+    border-bottom: 1px solid var(--toolbar-border);
+    flex-shrink: 0;
+}
+
+#editor {
+    flex: 1;
+    min-height: 0;
+    resize: none;
+    border: none;
+    outline: none;
+    padding: 16px;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+        "Liberation Mono", monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    tab-size: 4;
+    background: var(--editor-bg);
+    color: var(--editor-fg);
+}
+
+#preview {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+#preview .markdown-body {
+    padding: 24px 32px;
+    max-width: 980px;
+    margin: 0 auto;
+    color: var(--editor-fg);
+}
+
+#preview .markdown-body .mermaid svg { max-width: 100%; height: auto; }
+
+#preview .markdown-body .mermaid-error {
+    color: var(--danger);
+    border: 1px dashed var(--danger);
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin: 8px 0;
+    font-size: 13px;
+}
+
+/* Status bar */
+#status-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px;
+    font-size: 12px;
+    background: var(--status-bg);
+    border-top: 1px solid var(--toolbar-border);
+    color: var(--status-fg);
+    flex-shrink: 0;
+    user-select: none;
+}
+
+#status-bar .spacer { flex: 1; }
+
+#status-bar .version {
+    opacity: 0.8;
+}
+
+.hidden { display: none !important; }
