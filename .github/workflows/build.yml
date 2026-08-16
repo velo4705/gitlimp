@@ -90,7 +90,7 @@ jobs:
           cp build/linux/deb/usr/share/applications/gitlimp.desktop AppDir/usr/share/applications/
           cp build/linux/deb/usr/share/icons/hicolor/512x512/apps/gitlimp.png AppDir/usr/share/icons/hicolor/512x512/apps/
           cp build/linux/deb/usr/share/icons/hicolor/512x512/apps/gitlimp.png AppDir/gitlimp.png
-          printf '#!/bin/sh\nSELF=$(readlink -f "%s")\nexec "$SELF" --appimage-extract-and-run\n' "$0" > AppDir/AppRun
+          printf '#!/bin/sh\nHERE="$(dirname "$(readlink -f "${0}")")"\nexec "${HERE}/usr/bin/gitlimp" "$@"\n' > AppDir/AppRun
           chmod +x AppDir/AppRun
           ./squashfs-root/AppRun AppDir gitlimp-1.0.0-x86_64.AppImage
       - uses: actions/upload-artifact@v4
