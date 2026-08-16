@@ -131,18 +131,19 @@ jobs:
           wails build -trimpath -ldflags "-s -w" -tags webkit2_41
       - name: Build RPM
         run: |
+          export TOPDIR="$HOME/rpmbuild"
           VERSION="${GITHUB_REF_NAME#v}"
-          mkdir -p ~/rpmbuild/{SPECS,SOURCES,BUILD,RPMS,SRPMS}
+          mkdir -p "$TOPDIR"/{SPECS,SOURCES,BUILD,RPMS,SRPMS}
           tar --exclude='.git' --exclude='node_modules' \
-              --transform='s,^\./,gitlimp-'${VERSION}'/,' \
-              -czf ~/rpmbuild/SOURCES/gitlimp-${VERSION}.tar.gz .
-          cp build/linux/gitlimp.spec ~/rpmbuild/SPECS/
-          rpmbuild -ba --define "version ${VERSION}" ~/rpmbuild/SPECS/gitlimp.spec
+              --transform="s,^\.,gitlimp-${VERSION}," \
+              -czf "$TOPDIR/SOURCES/gitlimp-${VERSION}.tar.gz" .
+          cp build/linux/gitlimp.spec "$TOPDIR/SPECS/"
+          rpmbuild -ba --define "version ${VERSION}" --define "_topdir $TOPDIR" "$TOPDIR/SPECS/gitlimp.spec"
       - uses: actions/upload-artifact@v4
         with:
           name: gitlimp-rpm
           path: |
-            ~/rpmbuild/RPMS/**/*.rpm
+            $HOME/rpmbuild/RPMS/**/*.rpm
 
   build-flatpak:
     name: Build Flatpak
