@@ -15,20 +15,20 @@ function detectOS() {
 }
 
 const ASSETS = {
-    windows: 'gitlimp-amd64-installer.exe',
-    macos: 'gitlimp-darwin-amd64.dmg',
-    linux: 'gitlimp-linux-amd64.AppImage',
+    windows: 'gitlimp.exe',
+    linux: 'gitlimp-1.0.0-x86_64.AppImage',
 };
 
 const GITLIMP_REPO = 'https://github.com/velo4705/gitlimp';
+const RELEASES_URL = GITLIMP_REPO + '/releases';
 
 export function detectOSName() { return detectOS(); }
 
 export function downloadAssetURL() {
     const os = detectOS();
     const asset = ASSETS[os];
-    if (!asset) return GITLIMP_REPO + '/releases/latest';
-    return `${GITLIMP_REPO}/releases/latest/download/${asset}`;
+    if (!asset) return RELEASES_URL;
+    return `${RELEASES_URL}/latest`;
 }
 
 // The same API the desktop app exposes through Wails. Each method returns
