@@ -36,7 +36,7 @@ jobs:
         run: go build -trimpath -ldflags "-s -w" -o build/bin/gitlimp-update.exe ./cmd/updater
       - name: Build
         env:
-          PATH: ${{ env.ProgramFiles }}\NSIS;%USERPROFILE%\go\bin;${{ env.PATH }}
+          PATH: "C:\\Program Files (x86)\\NSIS;${{ env.ProgramFiles }}\\NSIS;${{ env.USERPROFILE }}\\go\\bin;${{ env.PATH }}"
         run: wails build -trimpath -ldflags "-s -w" -nsis
       - uses: actions/upload-artifact@v4
         with:
