@@ -6,14 +6,13 @@
 
 *An ordinary **Git**Hub **Li**ve **M**arkown **P**reviewer.*
 
-Preview Markdown files live without having to constantly push commits to GitHub.
+Preview Markdown files live without constantly pushing commits to GitHub.
 
-Currently Available for Windows, Linux (DEB/RPM/AppImage), macOS, and Flatpak.
-
-![Latest Release](https://img.shields.io/github/v/release/velo4705/gitlimp?label=Latest%20Release&color=informational)
+![LICENSE](https://img.shields.io/github/license/velo4705/gitlimp?color=yellow)
+![Latest Release](https://img.shields.io/github/v/release/velo4705/gitlimp?label=Latest%20Release&color=success)
 ![Platforms](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Flatpak-informational)
 
-**[→ Try GitLiMP in Browser ←](https://velo4705.github.io/gitlimp/)** &nbsp;
+**[🌐 Try GitLiMP in Browser](https://velo4705.github.io/gitlimp/)**
 
 <img src="assets/screenshot-main.png" alt="GitLiMP Main Preview" width="800">
 
@@ -59,9 +58,9 @@ The **Recent Files** feature allows you to quickly switch between recently opene
 - **AppImage**
 - **Flatpak**
 
-### AppImage Installation Issues
+You can get the Binaries from the [GitHub Releases](https://github.com/velo4705/gitlimp/releases) page.
 
-Download the latest AppImage from the [GitHub Releases](https://github.com/velo4705/gitlimp/releases) page.
+### AppImage Installation Issues
 
 > **Note:** AppImages require FUSE. Install it with:
 > ```
@@ -76,9 +75,7 @@ Download the latest AppImage from the [GitHub Releases](https://github.com/velo4
 
 ### Flatpak Installation
 
-Download the latest Flatpak package from the [GitHub Releases](https://github.com/velo4705/gitlimp/releases) page.
-
-> **Note:** Installing a Flatpak package requires this command:
+> **Note:** Flathub support is not added yet, so installing this Flatpak package requires this command:
 > ```bash
 > flatpak install gitlimp-X.X.X-x86_64.flatpak  # Where X.X.X is version name.
 > ```
