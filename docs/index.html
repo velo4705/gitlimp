@@ -3,57 +3,42 @@
 <head>
     <meta charset="UTF-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>GitLiMP</title>
-  <script type="module" crossorigin src="/assets/index-BMcvXac7.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-BkgqjPSC.css">
+    <title>GitLiMP Playground</title>
+  <script type="module" crossorigin src="/gitlimp/assets/index-DyjlCtAf.js"></script>
+  <link rel="stylesheet" crossorigin href="/gitlimp/assets/index-DW1wOkiz.css">
 </head>
 <body>
 <div id="app">
     <header id="toolbar">
-        <button id="open-btn" class="toolbar-btn">Open File...</button>
-        <button id="recent-btn" class="toolbar-btn" title="Recent Files (Ctrl+Shift+O)">Recent ▾</button>
-        <div id="recent-dropdown" class="dropdown hidden">
-            <div id="recent-list"></div>
-            <div class="dropdown-footer">
-                <button id="clear-recent-btn" class="dropdown-action">Clear Recent</button>
-            </div>
-        </div>
+        <span class="brand"><img src="/gitlimp/logo.png" alt=""/>GitLiMP Playground</span>
+        <label>
+            <select id="sample-dropdown" title="Load a sample document">
+                <option value="playground">Sample: Playground</option>
+                <option value="cheatsheet">Sample: Cheat Sheet</option>
+            </select>
+        </label>
+        <button id="open-btn" class="toolbar-btn">Open Local File...</button>
+        <input id="file-input" type="file" accept=".md,.markdown,text/markdown,text/plain" class="hidden"/>
         <div class="toolbar-spacer"></div>
-        <button id="split-btn" class="toolbar-btn" title="Toggle Split View (Ctrl+\\)">Split ▤</button>
-        <button id="reload-btn" class="toolbar-btn" disabled title="Reload (Ctrl+R)">⟳</button>
+        <button id="star-btn" class="toolbar-btn" title="Star on GitHub">&#9733; Star</button>
+        <button id="download-btn" class="toolbar-btn primary" title="Download GitLiMP for your OS">&#11015; Download</button>
     </header>
 
-    <div id="update-banner" class="update-banner hidden">
-        <span id="update-text"></span>
-        <button id="update-btn" class="toolbar-btn primary">Download & Restart</button>
-    </div>
-
     <main id="main">
-        <div id="empty-state" class="empty-state">
-            <img class="logo-mark" src="/logo.png" width="112" height="112" alt="GitLiMP logo"/>
-            <h1>GitLiMP</h1>
-            <p>Open markdown files to preview them exactly as GitHub renders them.</p>
-            <button id="empty-open-btn" class="empty-open-btn">Open File...</button>
-            <p class="hint">Ctrl+O to open · Ctrl+W to close tab · Ctrl+\\ to split</p>
+        <div class="pane">
+            <div class="pane-header">Markdown</div>
+            <textarea id="editor" spellcheck="false" placeholder="# Type markdown here..."></textarea>
         </div>
-        <div id="panes" class="panes hidden">
-            <div id="pane-left" class="pane" data-pane="left">
-                <div class="pane-tabbar"></div>
-                <div class="pane-body"></div>
-            </div>
-            <div id="pane-right" class="pane hidden" data-pane="right">
-                <div class="pane-tabbar"></div>
-                <div class="pane-body"></div>
-            </div>
-        </div>
-        <div id="error-banner" class="error-banner hidden">
-            <span id="error-text"></span>
-            <button id="error-close" class="error-close">&#10005;</button>
+        <div class="pane">
+            <div class="pane-header">Preview</div>
+            <div id="preview"><div class="markdown-body"></div></div>
         </div>
     </main>
 
     <footer id="status-bar">
         <span id="status-text">Ready</span>
+        <span class="spacer"></span>
+        <span class="version" id="version-text"></span>
     </footer>
 </div>
 </body>
