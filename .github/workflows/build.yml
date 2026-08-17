@@ -102,6 +102,37 @@ jobs:
             gitlimp-1.0.0-x86_64.AppImage
             build/bin/gitlimp
 
+  build-macos:
+    name: Build macOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set version
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "{\"version\":\"${VERSION}\"}" > version.json
+          cat version.json
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+          cache-dependency-path: go.sum
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Wails
+        run: go install github.com/wailsapp/wails/v2/cmd/wails@v2.14.0
+      - name: Build
+        run: wails build -trimpath -ldflags "-s -w"
+      - name: Zip app
+        run: |
+          cd build/bin
+          zip -r gitlimp-macos-arm64.zip gitlimp.app
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gitlimp-macos
+          path: build/bin/gitlimp-macos-arm64.zip
+
   build-rpm:
     name: Build RPM (Fedora)
     runs-on: ubuntu-latest
@@ -180,7 +211,7 @@ jobs:
   release:
     name: Publish Release
     if: startsWith(github.ref, 'refs/tags/')
-    needs: [build-windows, build-linux, build-rpm, build-flatpak]
+    needs: [build-windows, build-linux, build-rpm, build-flatpak, build-macos]
     runs-on: ubuntu-latest
     permissions:
       contents: write

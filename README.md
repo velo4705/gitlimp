@@ -8,10 +8,10 @@
 
 Preview Markdown files live without having to constantly push commits to GitHub.
 
-Currently Available for Windows, Linux (DEB/RPM/AppImage) and Flatpak.
+Currently Available for Windows, Linux (DEB/RPM/AppImage), macOS, and Flatpak.
 
 ![Latest Release](https://img.shields.io/github/v/release/velo4705/gitlimp?label=Latest%20Release&color=informational)
-![Platforms](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20Flatpak-informational)
+![Platforms](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Flatpak-informational)
 
 **[→ Try GitLiMP in Browser ←](https://velo4705.github.io/gitlimp/)** &nbsp;
 
@@ -52,15 +52,14 @@ The **Recent Files** feature allows you to quickly switch between recently opene
 
 ## Installation
 
-### Windows
+### Currently Available Platforms
+- **Windows** [Portable .EXE or installer]
+- **macOS** [Portable .app bundle]
+- **Linux** [Portable Binary or .DEB/RPM installer]
+- **AppImage**
+- **Flatpak**
 
-Download the latest release from the [GitHub Releases](https://github.com/velo4705/gitlimp/releases) page.
-
-### Linux
-
-Download the latest DEB or RPM package from the [GitHub Releases](https://github.com/velo4705/gitlimp/releases) page.
-
-### AppImage
+### AppImage Installation Issues
 
 Download the latest AppImage from the [GitHub Releases](https://github.com/velo4705/gitlimp/releases) page.
 
@@ -75,7 +74,7 @@ Download the latest AppImage from the [GitHub Releases](https://github.com/velo4
 > cd squashfs-root && ./AppRun
 > ```
 
-### Flatpak
+### Flatpak Installation
 
 Download the latest Flatpak package from the [GitHub Releases](https://github.com/velo4705/gitlimp/releases) page.
 
