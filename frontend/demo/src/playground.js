@@ -32,7 +32,7 @@ const downloadBtn = document.getElementById('download-btn');
 let debounceTimer = null;
 let currentSample = 'playground';
 
-function render() {
+async function render() {
     const article = preview.querySelector('.markdown-body');
     const atBottom = preview.scrollTop + preview.clientHeight >= preview.scrollHeight - 50;
     const raw = md.render(editor.value);
@@ -40,7 +40,7 @@ function render() {
     article.querySelectorAll('a[href]').forEach(a => {
         if (!a.title) a.title = a.getAttribute('href');
     });
-    renderMermaid();
+    await renderMermaid();
     if (atBottom) preview.scrollTop = preview.scrollHeight;
 }
 

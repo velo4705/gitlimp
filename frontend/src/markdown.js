@@ -55,6 +55,7 @@ mermaid.initialize({
 // after the article is inserted into the DOM.
 let mermaidSeq = 0;
 const pendingMermaid = [];
+const mermaidCache = new Map();
 const defaultFence = md.renderer.rules.fence || function(tokens, idx, options, env, self) {
     return self.renderToken(tokens, idx, options);
 };
@@ -74,9 +75,14 @@ async function renderMermaid() {
         const {id, code} = pendingMermaid.shift();
         const el = document.getElementById(id);
         if (!el) continue;
+        if (mermaidCache.has(code)) {
+            el.innerHTML = mermaidCache.get(code);
+            continue;
+        }
         try {
             const renderId = 'mermaid-render-' + id;
             const {svg} = await mermaid.render(renderId, code);
+            mermaidCache.set(code, svg);
             el.innerHTML = svg;
             const leftovers = document.getElementById('d' + renderId);
             if (leftovers) leftovers.remove();
