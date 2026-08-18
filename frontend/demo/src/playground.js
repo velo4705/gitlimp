@@ -34,12 +34,14 @@ let currentSample = 'playground';
 
 function render() {
     const article = preview.querySelector('.markdown-body');
+    const atBottom = preview.scrollTop + preview.clientHeight >= preview.scrollHeight - 50;
     const raw = md.render(editor.value);
     article.innerHTML = raw;
     article.querySelectorAll('a[href]').forEach(a => {
         if (!a.title) a.title = a.getAttribute('href');
     });
     renderMermaid();
+    if (atBottom) preview.scrollTop = preview.scrollHeight;
 }
 
 function scheduleRender() {
