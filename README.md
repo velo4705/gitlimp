@@ -58,9 +58,15 @@ The **Recent Files** feature allows you to quickly switch between recently opene
 
 You can get the Binaries from the [GitHub Releases](https://github.com/velo4705/gitlimp/releases) page.
 
+### Windows Installation Issues
+
+> [!IMPORTANT]
+> Some third-party antivirus software (e.g., McAfee, Norton) may flag GitLiMP as "unknown" because the binaries aren't code-signed. This is a **false positive** — the source is open as well as downloadable from the Main page, or the [Releases](https://github.com/velo4705/gitlimp/releases) page. Windows Defender does not flag it. If your AV/SmartScreen warns, allow the app through or run it via "More info → Run anyway".
+
 ### AppImage Installation Issues
 
-> **Note:** AppImages require FUSE. Install it with:
+> [!NOTE]
+> AppImages require FUSE. Install it with:
 > ```
 > sudo apt install fuse libfuse2          # Debian/Ubuntu
 > sudo dnf install fuse fuse-libs         # Fedora/RHEL
@@ -73,7 +79,8 @@ You can get the Binaries from the [GitHub Releases](https://github.com/velo4705/
 
 ### Flatpak Installation
 
-> **Note:** Flathub support is not added yet, so installing this Flatpak package requires this command:
+> [!NOTE]
+> Flathub support is not added yet, so installing this Flatpak package requires this command:
 > ```bash
 > flatpak install gitlimp-X.X.X-x86_64.flatpak  # Where X.X.X is version name.
 > ```
