@@ -4,9 +4,7 @@
 
 # GitLiMP
 
-*An ordinary **Git**Hub **Li**ve **M**arkown **P**reviewer.*
-
-Preview Markdown files live without constantly pushing commits to GitHub.
+Live Markdown preview that matches GitHub — no pushes, no setup, one binary.
 
 ![LICENSE](https://img.shields.io/github/license/velo4705/gitlimp?color=yellow)
 ![Latest Release](https://img.shields.io/github/v/release/velo4705/gitlimp?label=Latest%20Release&color=success)
