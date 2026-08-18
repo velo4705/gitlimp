@@ -33,11 +33,11 @@ jobs:
       - name: Install NSIS
         run: choco install nsis -y --no-progress
       - name: Build updater
-        run: go build -trimpath -ldflags "-s -w" -o build/bin/gitlimp-update.exe ./cmd/updater
+        run: go build -trimpath -o build/bin/gitlimp-update.exe ./cmd/updater
       - name: Build
         env:
           PATH: "C:\\Program Files (x86)\\NSIS;${{ env.ProgramFiles }}\\NSIS;${{ env.USERPROFILE }}\\go\\bin;${{ env.PATH }}"
-        run: wails build -trimpath -ldflags "-s -w" -nsis
+        run: wails build -trimpath -nsis
       - uses: actions/upload-artifact@v4
         with:
           name: gitlimp-windows
@@ -68,9 +68,9 @@ jobs:
       - name: Install Wails
         run: go install github.com/wailsapp/wails/v2/cmd/wails@v2.14.0
       - name: Build updater
-        run: go build -trimpath -ldflags "-s -w" -o build/bin/gitlimp-update ./cmd/updater
+        run: go build -trimpath -o build/bin/gitlimp-update ./cmd/updater
       - name: Build
-        run: wails build -trimpath -ldflags "-s -w" -tags webkit2_41
+        run: wails build -trimpath -tags webkit2_41
       - name: Build .deb
         run: |
           mkdir -p build/linux/deb/usr/bin
@@ -123,7 +123,7 @@ jobs:
       - name: Install Wails
         run: go install github.com/wailsapp/wails/v2/cmd/wails@v2.14.0
       - name: Build
-        run: wails build -trimpath -ldflags "-s -w"
+        run: wails build -trimpath
       - name: Zip app
         run: |
           cd build/bin
@@ -158,11 +158,11 @@ jobs:
       - name: Install Wails
         run: go install github.com/wailsapp/wails/v2/cmd/wails@v2.14.0
       - name: Build updater
-        run: go build -trimpath -ldflags "-s -w" -o build/bin/gitlimp-update ./cmd/updater
+        run: go build -trimpath -o build/bin/gitlimp-update ./cmd/updater
       - name: Build binary
         run: |
           export PATH=$(go env GOPATH)/bin:$PATH
-          wails build -trimpath -ldflags "-s -w" -tags webkit2_41
+          wails build -trimpath -tags webkit2_41
       - name: Build RPM
         run: |
           export TOPDIR="$HOME/rpmbuild"
