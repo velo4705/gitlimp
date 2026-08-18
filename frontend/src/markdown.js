@@ -33,6 +33,7 @@ md.use(texmath, {engine: katex, delimiters: 'dollars'});
 
 mermaid.initialize({
     startOnLoad: false,
+    suppressErrorRendering: true,
     theme: 'base',
     securityLevel: 'loose',
     htmlLabels: false,
@@ -80,6 +81,8 @@ async function renderMermaid() {
             const leftovers = document.getElementById('d' + renderId);
             if (leftovers) leftovers.remove();
         } catch (err) {
+            const leftovers = document.getElementById('d' + renderId);
+            if (leftovers) leftovers.remove();
             el.innerHTML = '<div class="mermaid-error">Mermaid render failed: ' + md.utils.escapeHtml(String(err && err.message || err)) + '</div>';
         }
     }
