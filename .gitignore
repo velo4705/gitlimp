@@ -11,6 +11,7 @@ frontend/dist
 # Wails-generated checksums / scratch
 *.md5
 frontend/test-mermaid.mjs
+build/windows/installer/wails_tools.nsh
 
 # Test files
 test.md
