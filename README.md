@@ -10,6 +10,8 @@ Live Markdown preview that matches GitHub — no pushes, no setup, one binary.
 ![Latest Release](https://img.shields.io/github/v/release/velo4705/gitlimp?label=Latest%20Release&color=success)
 ![Platforms](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Flatpak-informational)
 
+<a href="https://www.producthunt.com/products/gitlimp?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-gitlimp" target="_blank" rel="noopener noreferrer"><img alt="GitLiMP - Preview Markdown exactly as GitHub renders it | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1224706&amp;theme=dark&amp;t=1787123156067"></a>
+
 **[🌐 Try GitLiMP in Browser](https://velo4705.github.io/gitlimp/)**
 
 <img src="assets/screenshot-main.png" alt="GitLiMP Main Preview" width="800">
